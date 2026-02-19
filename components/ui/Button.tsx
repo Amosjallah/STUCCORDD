@@ -1,14 +1,14 @@
 "use client";
 
 import { ButtonHTMLAttributes, forwardRef } from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-type ButtonProps = Omit<HTMLMotionProps<"button">, "children"> & {
+interface ButtonProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onAnimationStart" | "onAnimationEnd" | "onDrag" | "onDragEnd" | "onDragStart"> {
   variant?: "primary" | "secondary" | "outline";
   size?: "sm" | "md" | "lg";
   children: React.ReactNode;
-};
+}
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", children, ...props }, ref) => {
@@ -32,7 +32,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(baseStyles, variants[variant], sizes[size], className)}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        {...props}
+        {...(props as any)}
       >
         {children}
       </motion.button>
