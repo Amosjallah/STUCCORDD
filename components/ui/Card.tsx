@@ -4,7 +4,7 @@ import { HTMLAttributes, forwardRef } from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationStart" | "onAnimationEnd" | "onDrag" | "onDragEnd" | "onDragStart"> {
   hover?: boolean;
   children: React.ReactNode;
 }
@@ -21,7 +21,7 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
         )}
         whileHover={hover ? { y: -4 } : {}}
         transition={{ duration: 0.2 }}
-        {...props}
+        {...(props as any)}
       >
         {children}
       </motion.div>
